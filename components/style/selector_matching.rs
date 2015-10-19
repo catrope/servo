@@ -76,9 +76,6 @@ lazy_static! {
 }
 
 pub struct Stylist {
-    // List of stylesheets (including all media rules)
-    // stylesheets: Vec<Stylesheet>,
-
     // Device that the stylist is currently evaluating against.
     pub device: Device,
 
@@ -121,7 +118,7 @@ impl Stylist {
         stylist
     }
 
-    pub fn update<'a>(&mut self, doc_stylesheets: &'a[&Stylesheet],
+    pub fn update(&mut self, doc_stylesheets: &[&Stylesheet],
                       stylesheets_changed: bool) -> bool {
         if !(self.is_device_dirty || stylesheets_changed) {
             return false;
@@ -232,11 +229,8 @@ impl Stylist {
         self.is_device_dirty |= is_device_dirty;
     }
 
-    pub fn get_viewport_constraints(&self) -> Option<ViewportConstraints> {
-        match self.viewport_constraints {
-            Some(ref constraints) => Some(constraints.clone()),
-            None => None
-        }
+    pub fn viewport_constraints(&self) -> &Option<ViewportConstraints> {
+        &self.viewport_constraints
     }
 
     pub fn set_quirks_mode(&mut self, enabled: bool) {

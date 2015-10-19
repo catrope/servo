@@ -1018,7 +1018,7 @@ impl LayoutTask {
                     flow_ref::deref_mut(layout_root));
                 let root_size = {
                     let root_flow = flow::base(&**layout_root);
-                    if rw_data.stylist.get_viewport_constraints().is_some() {
+                    if rw_data.stylist.viewport_constraints().is_some() {
                         root_flow.position.size.to_physical(root_flow.writing_mode)
                     } else {
                         root_flow.overflow.size
@@ -1108,7 +1108,7 @@ impl LayoutTask {
         let device = Device::new(MediaType::Screen, initial_viewport);
         rw_data.stylist.set_device(device, &stylesheets);
 
-        let constraints = rw_data.stylist.get_viewport_constraints();
+        let constraints = rw_data.stylist.viewport_constraints().clone();
         rw_data.viewport_size = match constraints {
             Some(ref constraints) => {
                 debug!("Viewport constraints: {:?}", constraints);
