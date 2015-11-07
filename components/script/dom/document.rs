@@ -1403,7 +1403,7 @@ impl Document {
     }
 
     /// Returns the list of stylesheets associated with nodes in the document.
-    pub fn stylesheets<'a>(&'a self) -> Ref<Vec<Arc<Stylesheet>>> {
+    pub fn stylesheets(&self) -> Ref<Vec<Arc<Stylesheet>>> {
         {
             let mut stylesheets = self.stylesheets.borrow_mut();
             if stylesheets.is_none() {
